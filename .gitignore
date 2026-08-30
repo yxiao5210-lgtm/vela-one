@@ -1,0 +1,19 @@
+# Node.js dependencies are restored by CI when the project adds a package manifest.
+node_modules/
+
+# macOS Finder metadata is local to each machine and should not enter version control.
+.DS_Store
+
+# Runtime and tool logs are generated artifacts, not source files.
+*.log
+
+# CI creates this clean static bundle immediately before Cloudflare Pages deploys it.
+dist/
+
+# Local secrets must never be committed. Keep an optional .env.example if one is added later.
+.env
+.env.*
+!.env.example
+
+# Wrangler writes local state here; it may contain machine-specific deployment metadata.
+.wrangler/

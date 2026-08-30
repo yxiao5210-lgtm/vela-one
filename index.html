@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Vela One 是一款虚构的冰银无线耳机产品故事网站。" />
+    <title>Vela One — 留住想听的声音</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="#overview" aria-label="Vela One 首页">Vela One</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">菜单</button>
+      <nav class="site-nav" id="main-nav" aria-label="主导航">
+        <a href="#overview">概览</a>
+        <a href="#sound-quality">音质</a>
+        <a href="#noise-control">降噪</a>
+        <a href="#comfort">佩戴</a>
+        <a href="#specs">规格</a>
+        <a class="nav-cta" href="#noise-control">体验降噪</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero reveal is-visible" id="overview">
+        <div class="hero-copy">
+          <p class="eyebrow">冰银无线耳机</p>
+          <h1>静下来 听见更多</h1>
+          <p class="product-name">Vela One</p>
+          <p class="hero-line">隔开通勤的嘈杂，也保留音乐里的每一个细节。</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#highlights">探索 Vela One</a>
+            <a class="text-link" href="#noise-control">体验降噪 <span aria-hidden="true">›</span></a>
+          </div>
+        </div>
+        <div class="product-stage product-stage-hero">
+          <picture>
+            <source media="(max-width: 700px)" srcset="assets/vela-hero-studio-mobile.webp" />
+            <source media="(max-width: 1100px)" srcset="assets/vela-hero-studio-tablet.webp" />
+            <img class="hero-product-image" src="assets/vela-hero-studio-desktop-v2.webp" alt="浅银白棚拍背景中的一对冰银 Vela One 无线耳机" />
+          </picture>
+        </div>
+      </section>
+
+      <section class="highlights-section reveal" id="highlights">
+        <p class="eyebrow">Vela One Highlights</p>
+        <h2>五个值得靠近的理由</h2>
+        <div class="feature-grid">
+          <a class="feature-card" href="#noise-control">
+            <img src="assets/vela-anc-desktop-clean.webp" alt="地铁车厢内佩戴冰银 Vela One 耳机的女子" />
+            <span><strong>把通勤留在外面</strong><small>让车厢嘈杂退后。</small></span>
+          </a>
+          <a class="feature-card" href="#sound-quality">
+            <img src="assets/vela-acoustics.webp" alt="展示 Vela One 耳机声学结构的近景" />
+            <span><strong>听见每一层细节</strong><small>让人声与乐器更清晰。</small></span>
+          </a>
+          <a class="feature-card" href="#spatial-audio">
+            <img src="assets/vela-spatial-immersive-mobile.webp" alt="佩戴 Vela One 耳机沉浸在空间声场中的女性" />
+            <span><strong>声音来到身边</strong><small>让声场从身边展开。</small></span>
+          </a>
+          <a class="feature-card" href="#comfort">
+            <img src="assets/vela-fit-closeup-clean.webp" alt="佩戴 Vela One 耳机的耳部近景" />
+            <span><strong>轻到忘记存在</strong><small>让柔和曲线贴合耳形。</small></span>
+          </a>
+          <a class="feature-card" href="#specs">
+            <img src="assets/vela-case-still.webp" alt="放置在深色表面的冰银 Vela One 充电盒" />
+            <span><strong>8 小时单次聆听</strong><small>让音乐陪你从早到晚。</small></span>
+          </a>
+        </div>
+      </section>
+
+      <section class="story-section story-light noise-experience reveal" id="noise-control" data-mode="anc">
+        <div class="story-copy">
+          <p class="eyebrow">智能降噪</p>
+          <h2 data-noise-title>世界安静下来</h2>
+          <div class="mode-switch" role="group" aria-label="聆听模式">
+            <button type="button" data-noise-mode="anc" aria-pressed="true">降噪开启</button>
+            <button type="button" data-noise-mode="transparency" aria-pressed="false">通透模式</button>
+          </div>
+          <p data-noise-description>地铁、人群与轨道声逐渐退后，只留下你正在聆听的声音。</p>
+        </div>
+        <div class="story-illustration">
+          <picture class="noise-visual" data-noise-visual="anc" aria-hidden="true">
+            <source media="(max-width: 700px)" srcset="assets/vela-anc-active-mobile.webp" />
+            <img src="assets/vela-anc-active-desktop.webp" alt="" />
+          </picture>
+          <picture class="noise-visual" data-noise-visual="transparency" aria-hidden="true">
+            <source media="(max-width: 700px)" srcset="assets/vela-transparency-mobile.webp" />
+            <img src="assets/vela-transparency-desktop.webp" alt="" />
+          </picture>
+        </div>
+      </section>
+
+      <section class="reference-sound-section reveal" id="sound-quality">
+        <img src="assets/vela-sound-reference.webp" alt="杜比音效调音台画面，展示调音师操作混音设备" />
+      </section>
+
+      <section class="story-section sound-section reveal" id="sound-engineering">
+        <div class="story-copy">
+          <p class="eyebrow">VELA 双芯声学系统</p>
+          <h2><span>从传输到发声</span><span>每一层都清晰归位</span></h2>
+          <p>高解析无线传输保留更多音源细节与动态。双 DAC 分别驱动 11 mm 镀钛动圈与 6.7 mm 微平板单元，让低频更有力量，让人声与高频保持清晰细腻。</p>
+        </div>
+        <div class="story-illustration">
+          <img src="assets/vela-acoustics.webp" alt="展示 Vela One 耳机声学结构的近景" />
+        </div>
+        <div class="sound-details">
+          <div class="sound-proof-grid" aria-label="声学规格">
+            <div><strong>LHDC-V5</strong><span>最高 24-bit/192kHz</span></div>
+            <div><strong>双 DAC</strong><span>高低频独立驱动</span></div>
+            <div><strong>11 mm + 6.7 mm</strong><span>双声学单元协同</span></div>
+          </div>
+          <div class="certification-row" aria-label="音频认证">
+            <span class="certification-label">高解析音频认证</span>
+            <span class="certification-badges">
+              <span class="certification-badge-box"><img class="certification-badge certification-lhdc" src="assets/lhdc-logo.svg" alt="LHDC 官方认证徽标" /></span>
+              <span class="certification-badge-box"><img class="certification-badge certification-hires" src="assets/hi-res-audio-wireless.jpg" alt="Hi-Res Audio Wireless 官方认证徽标" /></span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section immersive-campaign spatial-showcase reveal" id="spatial-audio">
+        <div class="campaign-copy">
+          <p class="eyebrow">独立空间音频</p>
+          <h2>动态头部追踪</h2>
+          <p>声音像被固定在屏幕与舞台前方。转动头部时，方向和距离依然清楚，让音乐、视频和游戏拥有更自然的包围感。</p>
+          <ul class="spatial-modes" aria-label="空间音频场景">
+            <li><span aria-hidden="true">◌</span>标准</li>
+            <li><span aria-hidden="true">♪</span>音乐</li>
+            <li><span aria-hidden="true">▻</span>视频</li>
+            <li><span aria-hidden="true">◉</span>听书</li>
+            <li><span aria-hidden="true">✣</span>游戏</li>
+          </ul>
+        </div>
+        <picture class="campaign-visual">
+          <source media="(max-width: 700px)" srcset="assets/vela-spatial-immersive-mobile.webp" />
+          <img src="assets/vela-spatial-immersive-desktop.webp" alt="佩戴 Vela One 耳机的女性被多方向空间声场环绕" />
+        </picture>
+      </section>
+
+      <section class="story-section story-silver reveal" id="comfort">
+        <div class="story-copy">
+          <p class="eyebrow">轻盈贴合</p>
+          <h2>轻到忘记存在</h2>
+          <p>柔和曲线顺着耳形贴合，让长时间通勤和聆听依然保持自在。</p>
+        </div>
+        <div class="story-illustration">
+          <img src="assets/vela-fit-closeup-clean.webp" alt="佩戴 Vela One 耳机的耳部近景" />
+        </div>
+      </section>
+
+      <section class="battery-section specs-section reveal" id="specs">
+        <div class="battery-copy">
+          <p class="eyebrow">续航充电</p>
+          <h2>从清晨听到夜晚</h2>
+          <p class="battery-number">8 小时单次聆听</p>
+        </div>
+        <div class="case-stage">
+          <img src="assets/vela-case-still.webp" alt="放置在深色表面的冰银 Vela One 充电盒" />
+        </div>
+        <dl class="spec-grid">
+          <div><dt>颜色</dt><dd>冰银</dd></div>
+          <div><dt>聆听模式</dt><dd>智能降噪与通透模式</dd></div>
+          <div><dt>单次续航</dt><dd>8 小时单次续航</dd></div>
+          <div><dt>连接方式</dt><dd>无线蓝牙连接</dd></div>
+        </dl>
+        <p class="spec-note">以上均为练习网站使用的虚构产品设定。</p>
+      </section>
+
+      <section class="closing-section reveal" id="closing">
+        <img src="assets/vela-case-still.webp" alt="放置在深色表面的冰银 Vela One 充电盒" />
+        <div>
+          <p class="eyebrow">Vela One</p>
+          <h2>静下来 听见更多</h2>
+          <a class="text-link" href="#overview">返回顶部</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Vela One</p>
+      <p>© <span id="year"></span> Vela One</p>
+    </footer>
+  </body>
+</html>

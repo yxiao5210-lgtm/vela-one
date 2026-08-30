@@ -1,0 +1,52 @@
+name: Test and deploy Vela One
+
+# Production deployment happens only after code is pushed to the main branch.
+on:
+  push:
+    branches:
+      - main
+
+# The workflow only needs to read repository contents. Cloudflare authentication uses secrets.
+permissions:
+  contents: read
+
+# A newer push replaces an older in-progress deployment for the same Pages project.
+concurrency:
+  group: vela-one-cloudflare-pages
+  cancel-in-progress: true
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Fetch the exact commit that triggered this workflow.
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      # The project uses Node's built-in test runner and has no package dependencies.
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Required test gate: deployment stops immediately if any test fails.
+      - name: Run site tests
+        run: node tests/site.test.mjs
+
+      # Create a minimal Pages artifact from the actual website source.
+      # This avoids uploading tests, plans, local state, and archived assets.
+      - name: Build static deployment bundle
+        run: |
+          mkdir -p dist
+          cp index.html styles.css script.js dist/
+          cp -R assets dist/assets
+
+      # Deploy the clean static artifact to the existing Cloudflare Pages project.
+      # Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID in GitHub repository secrets.
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=vela-one-mobile --branch=main
