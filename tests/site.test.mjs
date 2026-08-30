@@ -235,3 +235,32 @@ test('script includes menu, header, reveal, date, and noise hooks', async () => 
     assert.ok(script.includes(value));
   }
 });
+
+test('design-system page exposes required tokens, sections, and accessible theme controls', async () => {
+  const html = await read('design-system.html');
+  const css = await read('design-system.css');
+  const script = await read('design-system.js');
+  const siteCss = await read('styles.css');
+
+  for (const value of [
+    'design-system.css', 'design-system.js', 'Design System',
+    '色彩系统', '字体层级', '间距系统', '组件库',
+    '#0B0E12', '#66717A', '#EDF1F3', '#0E1217', '#4A9EDD', '#FBFCFC',
+    'clamp(2.5rem, 8vw, 4rem)', 'clamp(2rem, 6vw, 3rem)',
+    '4px', '8px', '16px', '24px', '32px', '48px', '64px', '96px',
+    'aria-pressed',
+  ]) assert.ok(html.includes(value), `design system should include ${value}`);
+
+  for (const value of [
+    '--ds-ink: #0b0e12', '--ds-accent: #4a9edd',
+    '.ds-color-card', '.ds-color-card__swatch', '.ds-button--primary',
+    '.ds-button--secondary', '.ds-card--large', '.ds-nav--expanded',
+    '@media (min-width: 720px)', 'prefers-reduced-motion', ':focus-visible',
+  ]) assert.ok(css.includes(value), `design CSS should include ${value}`);
+
+  for (const value of ['localStorage', 'prefers-color-scheme', 'aria-pressed', 'dataset.theme']) {
+    assert.ok(script.includes(value), `theme script should include ${value}`);
+  }
+
+  assert.match(siteCss, /--accent:\s*#4a9edd;/i);
+});
