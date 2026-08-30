@@ -264,3 +264,11 @@ test('design-system page exposes required tokens, sections, and accessible theme
 
   assert.match(siteCss, /--accent:\s*#4a9edd;/i);
 });
+
+test('deployment workflow copies the design-system files', async () => {
+  const workflow = await read('.github/workflows/deploy.yml');
+
+  for (const file of ['design-system.html', 'design-system.css', 'design-system.js']) {
+    assert.ok(workflow.includes(file), `deployment workflow should copy ${file}`);
+  }
+});

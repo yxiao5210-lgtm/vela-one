@@ -39,7 +39,7 @@ jobs:
       - name: Build static deployment bundle
         run: |
           mkdir -p dist
-          cp index.html styles.css script.js dist/
+          cp index.html styles.css script.js design-system.html design-system.css design-system.js dist/
           cp -R assets dist/assets
 
       # Deploy the clean static artifact to the existing Cloudflare Pages project.
