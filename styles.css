@@ -236,8 +236,16 @@ dd { margin: 0; font-size: 17px; font-weight: 620; line-height: 1.35; }
   .site-nav.is-open { display: flex; }
   .site-nav a { display: flex; align-items: center; min-height: 44px; padding: 12px; }
   .site-nav .nav-cta { margin-top: 4px; text-align: center; }
-  .hero { align-items: flex-start; min-height: 760px; padding: 94px max(18px, env(safe-area-inset-right)) 42px max(18px, env(safe-area-inset-left)); }
-  .hero-product-image { object-position: center; }
+  .hero { flex-direction: column; align-items: center; min-height: 760px; padding: 78px max(18px, env(safe-area-inset-right)) 0 max(18px, env(safe-area-inset-left)); text-align: center; }
+  .hero-copy { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: none; }
+  .hero .eyebrow, .hero-line { display: none; }
+  .hero .product-name { order: -1; margin: 0 0 12px; font-size: 16px; }
+  .hero h1 { margin-bottom: 18px; }
+  .hero-actions { justify-content: center; }
+  .hero-actions .button-primary { display: none; }
+  .product-stage-hero { position: relative; inset: auto; z-index: 0; width: 100%; margin-top: 72px; }
+  .product-stage-hero picture { height: auto; }
+  .hero-product-image { width: 100%; height: auto; object-fit: contain; object-position: center; }
   h1, h2, .display-title { font-size: clamp(34px, 10.2vw, 42px); white-space: nowrap; }
   .hero-line { font-size: 18px; }
   .highlights-section { width: 100%; padding: 82px max(18px, env(safe-area-inset-right)) 82px max(18px, env(safe-area-inset-left)); }

@@ -151,6 +151,17 @@ test('hero uses product-only studio assets instead of the former lifestyle backg
   assert.doesNotMatch(hero, /女子|人物|窗外|城市|天际线/);
 });
 
+test('mobile hero separates the copy from the product image', async () => {
+  const css = await read('styles.css');
+  const mobileCss = css.slice(css.indexOf('@media (max-width: 700px)'));
+
+  assert.match(mobileCss, /\.hero \{[^}]*flex-direction: column;[^}]*text-align: center;/s);
+  assert.match(mobileCss, /\.hero-copy \{[^}]*display: flex;[^}]*align-items: center;/s);
+  assert.match(mobileCss, /\.hero \.eyebrow, \.hero-line \{ display: none; \}/);
+  assert.match(mobileCss, /\.product-stage-hero \{[^}]*position: relative;[^}]*margin-top: 72px;/s);
+  assert.match(mobileCss, /\.hero-product-image \{[^}]*height: auto;[^}]*object-fit: contain;/s);
+});
+
 test('noise experience exposes accessible mode controls and description state', async () => {
   const html = await read('index.html');
   const section = html.match(/<section\b[^>]*\bid="noise-control"[^>]*>[\s\S]*?<\/section>/i)?.[0];
