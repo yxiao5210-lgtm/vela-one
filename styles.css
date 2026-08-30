@@ -235,7 +235,12 @@ dd { margin: 0; font-size: 17px; font-weight: 620; line-height: 1.35; }
   .site-nav { position: absolute; top: 52px; left: max(14px, env(safe-area-inset-left)); right: max(14px, env(safe-area-inset-right)); display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 10px; color: var(--ink); background: rgba(252, 252, 251, 0.96); border-radius: 14px; box-shadow: 0 12px 34px rgba(0, 0, 0, 0.13); backdrop-filter: blur(18px); }
   .site-nav.is-open { display: flex; }
   .site-nav a { display: flex; align-items: center; min-height: 44px; padding: 12px; }
-  .site-nav .nav-cta { margin-top: 4px; text-align: center; }
+  .site-nav a[href="#overview"] { order: 1; }
+  .site-nav a[href="#noise-control"] { order: 2; }
+  .site-nav a[href="#sound-quality"] { order: 3; }
+  .site-nav a[href="#comfort"] { order: 4; }
+  .site-nav a[href="#specs"] { order: 5; }
+  .site-nav .nav-cta { display: none; }
   .hero { flex-direction: column; align-items: center; min-height: 760px; padding: 78px max(18px, env(safe-area-inset-right)) 0 max(18px, env(safe-area-inset-left)); text-align: center; }
   .hero-copy { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: none; }
   .hero .eyebrow, .hero-line { display: none; }

@@ -18,6 +18,24 @@ test('page exposes product sections and navigation controls', async () => {
   }
 });
 
+test('mobile menu follows the page order and hides the duplicate noise CTA', async () => {
+  const css = await read('styles.css');
+  const mobileCss = css.slice(css.indexOf('@media (max-width: 700px)'));
+
+  const expectedOrder = [
+    ['#overview', 1],
+    ['#noise-control', 2],
+    ['#sound-quality', 3],
+    ['#comfort', 4],
+    ['#specs', 5],
+  ];
+
+  for (const [target, order] of expectedOrder) {
+    assert.match(mobileCss, new RegExp(`\\.site-nav a\\[href="${target}"\\] \\{ order: ${order}; \\}`));
+  }
+  assert.match(mobileCss, /\.site-nav \.nav-cta \{ display: none; \}/);
+});
+
 test('footer does not show the practice-product disclaimer', async () => {
   const html = await read('index.html');
   assert.doesNotMatch(html, /用于网页设计练习的虚构产品/);
