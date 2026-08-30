@@ -253,6 +253,7 @@ test('design-system page exposes required tokens, sections, and accessible theme
 
   for (const value of [
     '--ds-ink: #0b0e12', '--ds-accent: #4a9edd',
+    '--ds-font-h1:', '--ds-font-h2:', '--ds-font-body:', '--ds-font-caption:',
     '.ds-color-card', '.ds-color-card__swatch', '.ds-button--primary',
     '.ds-button--secondary', '.ds-card--large', '.ds-nav--expanded',
     '@media (min-width: 720px)', 'prefers-reduced-motion', ':focus-visible',

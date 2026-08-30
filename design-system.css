@@ -15,6 +15,14 @@
   --ds-space-6: 48px;
   --ds-space-7: 64px;
   --ds-space-8: 96px;
+  --ds-font-h1: clamp(2.5rem, 8vw, 4rem);
+  --ds-font-h2: clamp(2rem, 6vw, 3rem);
+  --ds-font-body: 1rem;
+  --ds-font-caption: 0.875rem;
+  --ds-leading-h1: 0.94;
+  --ds-leading-h2: 0.98;
+  --ds-leading-body: 1.6;
+  --ds-leading-caption: 1.4;
   --ds-radius: 20px;
   --ds-touch-target: 44px;
   --ds-max: 1180px;
@@ -80,12 +88,12 @@ button:disabled { cursor: not-allowed; }
 .ds-hero { padding: var(--ds-space-8) 0 var(--ds-space-7); }
 .ds-kicker { margin: 0 0 var(--ds-space-3); color: var(--ds-muted); font-size: 12px; font-weight: 750; letter-spacing: 0.13em; text-transform: uppercase; }
 .ds-hero h1, .ds-section h2, .ds-component-group h3 { margin: 0; letter-spacing: -0.065em; }
-.ds-hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; line-height: 0.94; }
+.ds-hero h1 { font-size: var(--ds-font-h1); font-weight: 800; line-height: var(--ds-leading-h1); }
 .ds-hero > p:last-child { max-width: 560px; margin: var(--ds-space-4) 0 0; color: var(--ds-muted); font-size: 17px; line-height: 1.6; }
 
 .ds-section { padding: var(--ds-space-7) 0; border-top: 1px solid var(--ds-line); }
 .ds-section__heading { max-width: 620px; margin-bottom: var(--ds-space-6); }
-.ds-section h2 { font-size: clamp(2rem, 6vw, 3rem); font-weight: 700; line-height: 0.98; }
+.ds-section h2 { font-size: var(--ds-font-h2); font-weight: 700; line-height: var(--ds-leading-h2); }
 .ds-section__heading > p:last-child { margin: var(--ds-space-3) 0 0; color: var(--ds-muted); line-height: 1.6; }
 
 .ds-color-grid { display: grid; gap: var(--ds-space-3); }
@@ -108,10 +116,10 @@ button:disabled { cursor: not-allowed; }
 .ds-type-sample { padding: var(--ds-space-4); border-radius: var(--ds-radius); background: var(--ds-ice); }
 .ds-type-sample__label { margin: 0 0 var(--ds-space-4); color: var(--ds-muted); font-size: 13px; font-weight: 700; }
 .ds-type { margin: 0 0 var(--ds-space-4); letter-spacing: -0.055em; }
-.ds-type--h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; line-height: 0.94; }
-.ds-type--h2 { font-size: clamp(2rem, 6vw, 3rem); font-weight: 700; line-height: 0.98; }
-.ds-type--body { max-width: 520px; font-size: 1rem; font-weight: 400; line-height: 1.6; letter-spacing: 0; }
-.ds-type--caption { font-size: 0.875rem; font-weight: 500; line-height: 1.4; letter-spacing: 0; }
+.ds-type--h1 { font-size: var(--ds-font-h1); font-weight: 800; line-height: var(--ds-leading-h1); }
+.ds-type--h2 { font-size: var(--ds-font-h2); font-weight: 700; line-height: var(--ds-leading-h2); }
+.ds-type--body { max-width: 520px; font-size: var(--ds-font-body); font-weight: 400; line-height: var(--ds-leading-body); letter-spacing: 0; }
+.ds-type--caption { font-size: var(--ds-font-caption); font-weight: 500; line-height: var(--ds-leading-caption); letter-spacing: 0; }
 
 .ds-spacing-list { display: grid; gap: var(--ds-space-3); padding: var(--ds-space-4); border: 1px solid var(--ds-line); border-radius: var(--ds-radius); background: var(--ds-surface); }
 .ds-spacing-item { display: grid; grid-template-columns: 48px 1fr; align-items: center; gap: var(--ds-space-3); color: var(--ds-muted); font-size: 13px; font-weight: 700; }
