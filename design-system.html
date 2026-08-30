@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Vela One 网站的颜色、字体、间距和组件设计规范。" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Vela One Design System</title>
+    <link rel="stylesheet" href="design-system.css" />
+    <script src="design-system.js" defer></script>
+  </head>
+  <body class="ds-page">
+    <header class="ds-header">
+      <a class="ds-header__brand" href="index.html" aria-label="返回 Vela One 产品首页">Vela One</a>
+      <button class="ds-theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
+        切换到深色模式
+      </button>
+    </header>
+
+    <main class="ds-main">
+      <!-- 用简短引言先说明页面用途，不与产品页的商品叙事争夺注意力。 -->
+      <section class="ds-hero" aria-labelledby="page-title">
+        <p class="ds-kicker">Vela One / Foundations</p>
+        <h1 id="page-title">Design System</h1>
+        <p>把网站里每一次颜色、字重、留白和交互，都变成可以重复使用的清晰规则。</p>
+      </section>
+
+      <!-- 色彩系统：同时说明色值、使用位置和对比度，让颜色好看也容易看清。 -->
+      <section class="ds-section" id="color" aria-labelledby="color-title">
+        <div class="ds-section__heading">
+          <p class="ds-kicker">01 / Color</p>
+          <h2 id="color-title">色彩系统</h2>
+          <p>Vela One 以冰银和石墨黑为基础，用一抹清晰的蓝色提示可操作内容。</p>
+        </div>
+        <div class="ds-color-grid">
+          <article class="ds-color-card">
+            <div class="ds-color-card__swatch ds-color-card__swatch--ink"></div>
+            <h3>Ink</h3><code>#0B0E12</code>
+            <p>rgb(11, 14, 18)<br />hsl(214 24% 6%)</p>
+            <p class="ds-color-card__use">主文字、深色按钮</p>
+            <p class="ds-color-card__contrast">对白色 19.34:1 · 对黑色 1.09:1</p>
+          </article>
+          <article class="ds-color-card">
+            <div class="ds-color-card__swatch ds-color-card__swatch--muted"></div>
+            <h3>Muted</h3><code>#66717A</code>
+            <p>rgb(102, 113, 122)<br />hsl(207 9% 44%)</p>
+            <p class="ds-color-card__use">次级文字、说明文字</p>
+            <p class="ds-color-card__contrast">对白色 4.99:1 · 对黑色 4.21:1</p>
+          </article>
+          <article class="ds-color-card">
+            <div class="ds-color-card__swatch ds-color-card__swatch--ice"></div>
+            <h3>Ice</h3><code>#EDF1F3</code>
+            <p>rgb(237, 241, 243)<br />hsl(200 20% 94%)</p>
+            <p class="ds-color-card__use">浅灰银背景</p>
+            <p class="ds-color-card__contrast">对白色 1.14:1 · 对黑色 18.48:1</p>
+          </article>
+          <article class="ds-color-card">
+            <div class="ds-color-card__swatch ds-color-card__swatch--graphite"></div>
+            <h3>Graphite</h3><code>#0E1217</code>
+            <p>rgb(14, 18, 23)<br />hsl(213 24% 7%)</p>
+            <p class="ds-color-card__use">深色章节背景</p>
+            <p class="ds-color-card__contrast">对白色 18.79:1 · 对黑色 1.12:1</p>
+          </article>
+          <article class="ds-color-card">
+            <div class="ds-color-card__swatch ds-color-card__swatch--accent">Ink</div>
+            <h3>Accent</h3><code>#4A9EDD</code>
+            <p>rgb(74, 158, 221)<br />hsl(206 68% 58%)</p>
+            <p class="ds-color-card__use">强调、链接、可操作状态</p>
+            <p class="ds-color-card__contrast">对白色 2.91:1 · 对黑色 7.23:1</p>
+            <p class="ds-note">只配 Ink 文字；白色小字不合格。</p>
+          </article>
+          <article class="ds-color-card">
+            <div class="ds-color-card__swatch ds-color-card__swatch--paper"></div>
+            <h3>Paper</h3><code>#FBFCFC</code>
+            <p>rgb(251, 252, 252)<br />hsl(180 14% 99%)</p>
+            <p class="ds-color-card__use">页面背景</p>
+            <p class="ds-color-card__contrast">对白色 1.03:1 · 对黑色 20.43:1</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 字体层级：用真实字号展示大小关系，避免只看数字无法判断阅读感受。 -->
+      <section class="ds-section" id="type" aria-labelledby="type-title">
+        <div class="ds-section__heading">
+          <p class="ds-kicker">02 / Type</p>
+          <h2 id="type-title">字体层级</h2>
+          <p>大字负责情绪与重点，正文负责解释；每一级都留出足够的呼吸空间。</p>
+        </div>
+        <div class="ds-type-list">
+          <article class="ds-type-sample">
+            <p class="ds-type-sample__label">H1 · 产品主张</p>
+            <p class="ds-type ds-type--h1">静下来 听见更多</p>
+            <code>clamp(2.5rem, 8vw, 4rem) · 800 · 0.94</code>
+          </article>
+          <article class="ds-type-sample">
+            <p class="ds-type-sample__label">H2 · 章节标题</p>
+            <p class="ds-type ds-type--h2">每一层都清晰归位</p>
+            <code>clamp(2rem, 6vw, 3rem) · 700 · 0.98</code>
+          </article>
+          <article class="ds-type-sample">
+            <p class="ds-type-sample__label">Body · 说明文字</p>
+            <p class="ds-type ds-type--body">让人声保持距离感，也让细小的乐器变化清晰可辨。</p>
+            <code>1rem · 400 · 1.6</code>
+          </article>
+          <article class="ds-type-sample">
+            <p class="ds-type-sample__label">Caption · 辅助说明</p>
+            <p class="ds-type ds-type--caption">高解析无线音频传输</p>
+            <code>0.875rem · 500 · 1.4</code>
+          </article>
+        </div>
+      </section>
+
+      <!-- 间距系统：把抽象的留白变成看得见、能直接照用的尺寸。 -->
+      <section class="ds-section" id="spacing" aria-labelledby="spacing-title">
+        <div class="ds-section__heading">
+          <p class="ds-kicker">03 / Spacing</p>
+          <h2 id="spacing-title">间距系统</h2>
+          <p>以 8px 为主要节奏；4px 用于细微贴合，96px 用于章节之间的明显停顿。</p>
+        </div>
+        <div class="ds-spacing-list" aria-label="8 像素间距基准">
+          <div class="ds-spacing-item"><span>4px</span><i style="--space-size: 4px"></i></div>
+          <div class="ds-spacing-item"><span>8px</span><i style="--space-size: 8px"></i></div>
+          <div class="ds-spacing-item"><span>16px</span><i style="--space-size: 16px"></i></div>
+          <div class="ds-spacing-item"><span>24px</span><i style="--space-size: 24px"></i></div>
+          <div class="ds-spacing-item"><span>32px</span><i style="--space-size: 32px"></i></div>
+          <div class="ds-spacing-item"><span>48px</span><i style="--space-size: 48px"></i></div>
+          <div class="ds-spacing-item"><span>64px</span><i style="--space-size: 64px"></i></div>
+          <div class="ds-spacing-item"><span>96px</span><i style="--space-size: 96px"></i></div>
+        </div>
+      </section>
+
+      <!-- 组件库：将产品页中反复出现的交互，整理成可直接参考的最小组合。 -->
+      <section class="ds-section" id="components" aria-labelledby="components-title">
+        <div class="ds-section__heading">
+          <p class="ds-kicker">04 / Components</p>
+          <h2 id="components-title">组件库</h2>
+          <p>同一类动作使用同一套视觉语言，让用户不用重新学习怎样点击、阅读和前进。</p>
+        </div>
+
+        <div class="ds-component-group">
+          <div class="ds-component-group__title"><h3>按钮</h3><p>触摸目标至少 44px；键盘焦点有蓝色外框。</p></div>
+          <div class="ds-component-group__demo ds-button-row">
+            <button class="ds-button ds-button--primary" type="button">探索 Vela One</button>
+            <button class="ds-button ds-button--secondary" type="button">了解更多</button>
+            <button class="ds-button" type="button" disabled>暂不可用</button>
+          </div>
+          <pre class="ds-code"><code>&lt;button class="ds-button ds-button--primary"&gt;探索 Vela One&lt;/button&gt;</code></pre>
+        </div>
+
+        <div class="ds-component-group">
+          <div class="ds-component-group__title"><h3>卖点卡片</h3><p>大卡用来表达最重要的感受，小卡承接补充信息。</p></div>
+          <div class="ds-card-grid">
+            <article class="ds-card ds-card--large"><span>智能降噪</span><strong>把通勤留在外面</strong><small>让车厢嘈杂退后。</small></article>
+            <article class="ds-card"><span>轻盈贴合</span><strong>轻到忘记存在</strong><small>让柔和曲线贴合耳形。</small></article>
+          </div>
+          <pre class="ds-code"><code>&lt;article class="ds-card ds-card--large"&gt;...&lt;/article&gt;</code></pre>
+        </div>
+
+        <div class="ds-component-group">
+          <div class="ds-component-group__title"><h3>导航</h3><p>桌面端展开显示链接；手机端收起为一个 44px 菜单按钮。</p></div>
+          <div class="ds-nav-demo">
+            <nav class="ds-nav ds-nav--expanded" aria-label="展开的示例导航"><strong>Vela One</strong><a href="#color">色彩</a><a href="#components">组件</a></nav>
+            <div class="ds-nav ds-nav--collapsed"><strong>Vela One</strong><button type="button" aria-label="打开示例菜单">菜单</button></div>
+          </div>
+          <pre class="ds-code"><code>&lt;nav class="ds-nav ds-nav--expanded"&gt;...&lt;/nav&gt;</code></pre>
+        </div>
+      </section>
+    </main>
+    <footer class="ds-footer">Vela One Design System · 2026</footer>
+  </body>
+</html>
