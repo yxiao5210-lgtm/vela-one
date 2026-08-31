@@ -36,9 +36,9 @@ test('mobile menu follows the page order and hides the duplicate noise CTA', asy
   assert.match(mobileCss, /\.site-nav \.nav-cta \{ display: none; \}/);
 });
 
-test('footer does not show the practice-product disclaimer', async () => {
+test('page does not present the product as a practice or fictional item', async () => {
   const html = await read('index.html');
-  assert.doesNotMatch(html, /用于网页设计练习的虚构产品/);
+  assert.doesNotMatch(html, /练习网站|虚构产品/);
 });
 
 test('page sections follow the revised product story order', async () => {
@@ -75,11 +75,9 @@ test('page has concise large headings without line-break markup', async () => {
 test('page references the revised visual assets that exist on disk', async () => {
   const html = await read('index.html');
   const assets = [
-    'vela-hero-studio-desktop-v2.webp',
-    'vela-hero-studio-tablet.webp',
-    'vela-hero-studio-mobile.webp',
+    'vela-one-hero.png',
+    'vela-one-anc-subway-product-crop.webp',
     'vela-acoustics.webp',
-    'vela-anc-desktop-clean.webp',
     'vela-anc-active-desktop.webp',
     'vela-anc-active-mobile.webp',
     'vela-transparency-desktop.webp',
@@ -157,27 +155,73 @@ test('sound engineering combines listening promise, codec evidence, and certific
   }
 });
 
-test('hero uses product-only studio assets instead of the former lifestyle background', async () => {
+test('hero and primary highlight use the approved cinematic product assets', async () => {
   const html = await read('index.html');
   const hero = html.match(/<section\b[^>]*\bid="overview"[^>]*>[\s\S]*?<\/section>/i)?.[0];
+  const highlights = html.match(/<section\b[^>]*\bid="highlights"[^>]*>[\s\S]*?<\/section>/i)?.[0];
 
   assert.ok(hero, 'overview hero should exist');
-  assert.match(hero, /assets\/vela-hero-studio-desktop-v2\.webp/);
-  assert.match(hero, /assets\/vela-hero-studio-tablet\.webp/);
-  assert.match(hero, /assets\/vela-hero-studio-mobile\.webp/);
-  assert.doesNotMatch(hero, /assets\/vela-hero-(?:desktop|mobile)\.webp/);
-  assert.doesNotMatch(hero, /女子|人物|窗外|城市|天际线/);
+  assert.match(hero, /assets\/vela-one-hero\.png/);
+  assert.match(hero, /fetchpriority="high"/);
+  assert.doesNotMatch(hero, /vela-hero-studio-/);
+  assert.ok(highlights, 'highlights should exist');
+  assert.match(highlights, /assets\/vela-one-anc-subway-product-crop\.webp/);
 });
 
-test('mobile hero separates the copy from the product image', async () => {
+test('main site defines the approved cinematic color system', async () => {
+  const css = await read('styles.css');
+
+  for (const token of [
+    '--night: #050607',
+    '--night-soft: #0e1217',
+    '--surface: #151a20',
+    '--text: #f7f8fa',
+    '--text-muted: #9aa4ad',
+    '--metal: #d8dde1',
+    '--accent: #4a9edd',
+  ]) {
+    assert.ok(css.includes(token), `missing ${token}`);
+  }
+  assert.match(css, /body\s*\{[^}]*background:\s*var\(--night\)/s);
+});
+
+test('mobile hero separates the copy from the cinematic product stage', async () => {
   const css = await read('styles.css');
   const mobileCss = css.slice(css.indexOf('@media (max-width: 700px)'));
 
-  assert.match(mobileCss, /\.hero \{[^}]*flex-direction: column;[^}]*text-align: center;/s);
+  assert.match(mobileCss, /\.hero \{[^}]*display: grid;[^}]*grid-template-rows: auto minmax\(0, 1fr\);[^}]*text-align: center;/s);
   assert.match(mobileCss, /\.hero-copy \{[^}]*display: flex;[^}]*align-items: center;/s);
-  assert.match(mobileCss, /\.hero \.eyebrow, \.hero-line \{ display: none; \}/);
-  assert.match(mobileCss, /\.product-stage-hero \{[^}]*position: relative;[^}]*margin-top: 72px;/s);
-  assert.match(mobileCss, /\.hero-product-image \{[^}]*height: auto;[^}]*object-fit: contain;/s);
+  assert.match(mobileCss, /\.product-stage-hero \{[^}]*position: relative;[^}]*margin: 32px -18px 0;/s);
+  assert.match(mobileCss, /\.hero-product-image \{[^}]*height: 100%;[^}]*object-fit: cover;[^}]*object-position: 70% center;/s);
+});
+
+test('highlights and noise control use the cinematic dark-surface treatment', async () => {
+  const css = await read('styles.css');
+
+  assert.match(css, /\.highlights-section\s*\{[^}]*color:\s*var\(--text\)/s);
+  assert.match(css, /\.feature-card\s*\{[^}]*background:\s*var\(--surface\)/s);
+  assert.match(css, /\.noise-experience\s*\{[^}]*min-height:\s*100svh[^}]*background:\s*var\(--night-soft\)/s);
+  assert.match(css, /\.noise-visual\s*\{[^}]*transition:\s*opacity 520ms cubic-bezier/);
+});
+
+test('sound proof is the ice-silver technical chapter within the dark story', async () => {
+  const css = await read('styles.css');
+
+  assert.match(css, /\.reference-sound-section\s*\{[^}]*background:\s*var\(--night\)/s);
+  assert.match(css, /\.sound-section\s*\{[^}]*color:\s*var\(--ink\)[^}]*background:\s*var\(--paper\)/s);
+  assert.match(css, /\.sound-section \.story-illustration\s*\{[^}]*transition:\s*opacity 700ms cubic-bezier[^}]*transform 700ms cubic-bezier/s);
+  assert.match(css, /\.immersive-campaign\s*\{[^}]*background:\s*var\(--night\)/s);
+  assert.match(css, /\.story-silver\s*\{[^}]*color:\s*var\(--text\)[^}]*background:\s*var\(--night-soft\)/s);
+});
+
+test('specifications and closing keep the final chapters dark and motion-safe', async () => {
+  const css = await read('styles.css');
+
+  assert.match(css, /\.specs-section\s*\{[^}]*color:\s*var\(--text\)[^}]*background:\s*var\(--night-soft\)/s);
+  assert.match(css, /\.battery-copy\s*\{[^}]*color:\s*var\(--text\)/s);
+  assert.match(css, /\.closing-section\s*\{[^}]*background:\s*var\(--night\)/s);
+  assert.match(css, /\.site-footer\s*\{[^}]*background:\s*var\(--night\)/s);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.sound-section \.story-illustration/);
 });
 
 test('noise experience exposes accessible mode controls and description state', async () => {
