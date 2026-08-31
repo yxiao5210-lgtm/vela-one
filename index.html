@@ -60,19 +60,21 @@
       <section class="story-section story-light noise-experience reveal" id="noise-control" data-mode="anc">
         <div class="story-copy">
           <p class="eyebrow">智能降噪</p>
-          <h2 data-noise-title>把喧闹留在外面</h2>
+          <h2 data-noise-title>世界安静下来</h2>
           <div class="mode-switch" role="group" aria-label="聆听模式">
             <button type="button" data-noise-mode="anc" aria-pressed="true">降噪开启</button>
             <button type="button" data-noise-mode="transparency" aria-pressed="false">通透模式</button>
           </div>
-          <p data-noise-description aria-live="polite" aria-atomic="true">轨道、人群与城市声退到远处，只留下你想听见的部分。</p>
+          <p data-noise-description aria-live="polite" aria-atomic="true">地铁、人群与轨道声逐渐退后，只留下你正在聆听的声音。</p>
         </div>
         <div class="story-illustration" data-scroll-scale>
           <picture class="noise-visual" data-noise-visual="anc" aria-hidden="true">
-            <img src="assets/vela-quiet-anc.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async" />
+            <source media="(max-width: 700px)" srcset="assets/vela-anc-active-mobile.webp" />
+            <img src="assets/vela-anc-active-desktop.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
           </picture>
           <picture class="noise-visual" data-noise-visual="transparency" aria-hidden="true">
-            <img src="assets/vela-quiet-transparency.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async" />
+            <source media="(max-width: 700px)" srcset="assets/vela-transparency-mobile.webp" />
+            <img src="assets/vela-transparency-desktop.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
           </picture>
         </div>
       </section>

@@ -294,7 +294,7 @@ dd { margin: 0; font-size: 17px; font-weight: 620; line-height: 1.35; }
   .noise-experience, .story-silver { min-height: 600px; padding: 82px max(18px, env(safe-area-inset-right)) 82px max(18px, env(safe-area-inset-left)); align-items: flex-start; }
   .noise-experience .story-copy { max-width: min(78vw, 330px); }
   .noise-experience .story-illustration img { object-position: 68% center; }
-  .noise-experience { display: grid; align-items: start; min-height: max(640px, 100svh); padding: 0; }
+  .noise-experience { display: grid; align-items: start; min-height: max(640px, calc(100dvh - 52px)); padding: 0; }
   .noise-experience .story-copy { max-width: none; padding: 82px max(18px, env(safe-area-inset-right)) 0 max(18px, env(safe-area-inset-left)); background: transparent; }
   .noise-experience .story-illustration { position: absolute; inset: 0; z-index: -2; width: auto; height: auto; overflow: hidden; }
   .noise-experience .story-illustration picture, .noise-experience .story-illustration img { display: block; width: 100%; height: 100%; }

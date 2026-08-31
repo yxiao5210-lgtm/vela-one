@@ -80,20 +80,21 @@ test('quiet luxury story removes the face-led reference chapter', async () => {
   assert.match(html, /<a href="#sound-engineering">音质<\/a>/);
 });
 
-test('story uses the approved anonymous visual assets', async () => {
+test('noise experience uses matched person-led visuals for desktop and mobile', async () => {
   const html = await read('index.html');
 
   for (const asset of [
-    'vela-quiet-anc.webp',
-    'vela-quiet-transparency.webp',
-    'vela-spatial-field.webp',
+    'vela-anc-active-desktop.webp',
+    'vela-anc-active-mobile.webp',
+    'vela-transparency-desktop.webp',
+    'vela-transparency-mobile.webp',
   ]) {
     assert.ok(html.includes(`assets/${asset}`), `page should use ${asset}`);
     const info = await stat(new URL(`../assets/${asset}`, import.meta.url));
     assert.equal(info.isFile(), true, `${asset} should be a file`);
   }
 
-  assert.doesNotMatch(html, /vela-spatial-immersive|vela-anc-active|vela-transparency/);
+  assert.doesNotMatch(html, /vela-quiet-anc|vela-quiet-transparency/);
 });
 
 test('page has concise large headings without line-break markup', async () => {
@@ -114,8 +115,10 @@ test('page references the revised visual assets that exist on disk', async () =>
   const html = await read('index.html');
   const assets = [
     'vela-one-hero.png',
-    'vela-quiet-anc.webp',
-    'vela-quiet-transparency.webp',
+    'vela-anc-active-desktop.webp',
+    'vela-anc-active-mobile.webp',
+    'vela-transparency-desktop.webp',
+    'vela-transparency-mobile.webp',
     'vela-acoustics.webp',
     'vela-spatial-field.webp',
     'vela-fit-closeup-clean.webp',
@@ -283,6 +286,7 @@ test('specifications and closing keep the final chapters dark and motion-safe', 
 
 test('noise experience exposes accessible mode controls and description state', async () => {
   const html = await read('index.html');
+  const script = await read('script.js');
   const section = html.match(/<section\b[^>]*\bid="noise-control"[^>]*>[\s\S]*?<\/section>/i)?.[0];
 
   assert.ok(section, 'noise-control section should exist');
@@ -297,11 +301,19 @@ test('noise experience exposes accessible mode controls and description state', 
   assert.match(section, /aria-pressed="true"/);
   assert.match(section, /data-noise-title\b/);
   assert.match(section, /data-noise-description[^>]*aria-live="polite"[^>]*aria-atomic="true"/);
+  assert.match(section, />世界安静下来<\/h2>/);
+  assert.match(section, /地铁、人群与轨道声逐渐退后，只留下你正在聆听的声音。/);
+  assert.match(script, /title: '重要的声音重新靠近'/);
+  assert.match(script, /无需摘下耳机，也能自然听见对话、广播与身边的环境提醒。/);
 
   const visuals = [...section.matchAll(/<picture\b[^>]*data-noise-visual="([^"]+)"[^>]*>[\s\S]*?<\/picture>/gi)];
   assert.deepEqual(visuals.map((match) => match[1]).sort(), ['anc', 'transparency']);
-  assert.match(visuals.find((match) => match[1] === 'anc')[0], /vela-quiet-anc\.webp/);
-  assert.match(visuals.find((match) => match[1] === 'transparency')[0], /vela-quiet-transparency\.webp/);
+  const ancVisual = visuals.find((match) => match[1] === 'anc')[0];
+  const transparencyVisual = visuals.find((match) => match[1] === 'transparency')[0];
+  assert.match(ancVisual, /media="\(max-width: 700px\)" srcset="assets\/vela-anc-active-mobile\.webp"/);
+  assert.match(ancVisual, /src="assets\/vela-anc-active-desktop\.webp"/);
+  assert.match(transparencyVisual, /media="\(max-width: 700px\)" srcset="assets\/vela-transparency-mobile\.webp"/);
+  assert.match(transparencyVisual, /src="assets\/vela-transparency-desktop\.webp"/);
 });
 
 test('reveal animation is progressive enhancement so content survives without JavaScript', async () => {
@@ -346,7 +358,7 @@ test('mobile highlights condense the five reasons into a two-column chapter inde
 test('mobile noise experience keeps controls and both mode visuals in one viewport', async () => {
   const css = await read('styles.css');
 
-  assert.match(css, /\.noise-experience\s*\{\s*display:\s*grid;\s*align-items:\s*start;\s*min-height:\s*max\(640px,\s*100svh\)/);
+  assert.match(css, /\.noise-experience\s*\{\s*display:\s*grid;\s*align-items:\s*start;\s*min-height:\s*max\(640px,\s*calc\(100dvh - 52px\)\)/);
   assert.match(css, /\.noise-experience \.story-copy\s*\{\s*max-width:\s*none;\s*padding:\s*82px[^}]*background:\s*transparent/);
   assert.match(css, /\.noise-experience \.story-illustration\s*\{\s*position:\s*absolute;\s*inset:\s*0;\s*z-index:\s*-2;\s*width:\s*auto;\s*height:\s*auto/);
   assert.match(css, /\.noise-experience::before\s*\{[^}]*display:\s*block[^}]*linear-gradient\(180deg/);
