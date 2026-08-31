@@ -4,6 +4,8 @@ const header = document.querySelector('.site-header');
 const navLinks = document.querySelectorAll('.site-nav a');
 const reveals = document.querySelectorAll('.reveal');
 const year = document.querySelector('#year');
+const scrollScaleElements = document.querySelectorAll('[data-scroll-scale]');
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const noiseExperience = document.querySelector('.noise-experience');
 const noiseModeButtons = document.querySelectorAll('[data-noise-mode]');
 const noiseTitle = document.querySelector('[data-noise-title]');
@@ -59,6 +61,32 @@ window.addEventListener('scroll', updateHeader, { passive: true });
 
 if (year) {
   year.textContent = new Date().getFullYear();
+}
+
+let scrollFrame = 0;
+
+function updateScrollScale() {
+  scrollFrame = 0;
+  const viewportHeight = window.innerHeight;
+
+  scrollScaleElements.forEach((element) => {
+    const rect = element.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > viewportHeight) return;
+
+    const progress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
+    element.style.setProperty('--scroll-progress', progress.toFixed(3));
+  });
+}
+
+function requestScrollScaleUpdate() {
+  if (scrollFrame || prefersReducedMotion.matches) return;
+  scrollFrame = requestAnimationFrame(updateScrollScale);
+}
+
+if (!prefersReducedMotion.matches && scrollScaleElements.length) {
+  updateScrollScale();
+  window.addEventListener('scroll', requestScrollScaleUpdate, { passive: true });
+  window.addEventListener('resize', requestScrollScaleUpdate);
 }
 
 if ('IntersectionObserver' in window) {

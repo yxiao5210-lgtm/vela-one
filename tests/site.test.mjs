@@ -11,7 +11,7 @@ test('page exposes product sections and navigation controls', async () => {
     'Vela One',
     'class="menu-toggle"',
     'class="site-nav"',
-    'href="#highlights">探索 Vela One',
+    'href="#highlights">向下探索',
     'href="#noise-control">体验降噪',
   ]) {
     assert.match(html, new RegExp(value));
@@ -145,6 +145,7 @@ test('sound proof and spatial chapters stay product-led', async () => {
   assert.match(sound, /assets\/vela-acoustics\.webp/);
   assert.ok(spatial, 'spatial-audio section should exist');
   assert.match(spatial, /assets\/vela-spatial-field\.webp/);
+  assert.match(spatial, /assets\/vela-one-right\.png/);
   assert.doesNotMatch(spatial, /女性|人物|vela-spatial-immersive|spatial-modes|小米|Xiaomi|Dolby/i);
 });
 
@@ -155,8 +156,8 @@ test('sound engineering combines listening promise, codec evidence, and certific
 
   assert.ok(section, 'sound-engineering section should exist');
   for (const value of [
-    '从传输到发声',
-    '每一层都清晰归位',
+    '每一层',
+    '都听得见',
     'LHDC-V5',
     '最高 24-bit/192kHz',
     '双 DAC',
@@ -196,16 +197,16 @@ test('hero and primary highlight use the approved cinematic product assets', asy
   assert.match(hero, /fetchpriority="high"/);
   assert.doesNotMatch(hero, /vela-hero-studio-/);
   assert.ok(highlights, 'highlights should exist');
-  assert.match(highlights, /assets\/vela-quiet-anc\.webp/);
+  assert.match(highlights, /assets\/vela-one-hero\.png/);
+  assert.match(highlights, /class="chapter-index"/);
 });
 
-test('sound-detail card jumps directly to the acoustic proof section', async () => {
+test('sound chapter index jumps directly to the acoustic proof section', async () => {
   const html = await read('index.html');
-  const card = [...html.matchAll(/<a class="feature-card" href="([^"]+)">[\s\S]*?<\/a>/g)]
-    .find((match) => match[0].includes('听见每一层细节'));
+  const index = html.match(/<nav class="chapter-index"[\s\S]*?<\/nav>/)?.[0];
 
-  assert.ok(card, 'sound-detail card should exist');
-  assert.equal(card[1], '#sound-engineering');
+  assert.ok(index, 'chapter index should exist');
+  assert.match(index, /href="#sound-engineering"/);
   assert.match(html, /<section class="story-section sound-section reveal" id="sound-engineering">/);
 });
 
@@ -232,15 +233,15 @@ test('mobile hero separates the copy from the cinematic product stage', async ()
 
   assert.match(mobileCss, /\.hero \{[^}]*display: grid;[^}]*grid-template-rows: auto minmax\(0, 1fr\);[^}]*text-align: center;/s);
   assert.match(mobileCss, /\.hero-copy \{[^}]*display: flex;[^}]*align-items: center;/s);
-  assert.match(mobileCss, /\.product-stage-hero \{[^}]*position: relative;[^}]*height: 100%;[^}]*margin: 32px -18px 0;/s);
-  assert.match(mobileCss, /\.hero-product-image \{[^}]*height: 100%;[^}]*object-fit: cover;[^}]*object-position: 70% center;/s);
+  assert.match(mobileCss, /\.hero-stage \{[^}]*position: relative;[^}]*height: 100%;[^}]*margin: 28px -18px 0;/s);
+  assert.match(mobileCss, /\.hero-product-image \{[^}]*height: 100%;[^}]*object-fit: cover;[^}]*object-position: 72% center;/s);
 });
 
 test('highlights and noise control use the cinematic dark-surface treatment', async () => {
   const css = await read('styles.css');
 
-  assert.match(css, /\.highlights-section\s*\{[^}]*color:\s*var\(--text\)/s);
-  assert.match(css, /\.feature-card\s*\{[^}]*background:\s*var\(--surface\)/s);
+  assert.match(css, /\.impact-intro\s*\{[^}]*color:\s*var\(--text\)[^}]*background:\s*#020304/s);
+  assert.match(css, /\.chapter-index\s*\{[^}]*background:\s*rgba\(3, 5, 7, \.28\)/s);
   assert.match(css, /\.noise-experience\s*\{[^}]*min-height:\s*100svh[^}]*background:\s*var\(--night-soft\)/s);
   assert.match(css, /\.noise-visual\s*\{[^}]*transition:\s*opacity 520ms cubic-bezier/);
 });
@@ -249,7 +250,7 @@ test('sound proof is the ice-silver technical chapter within the dark story', as
   const css = await read('styles.css');
 
   assert.match(css, /\.sound-section\s*\{[^}]*color:\s*var\(--ink\)[^}]*background:\s*var\(--paper\)/s);
-  assert.match(css, /\.sound-section \.story-illustration\s*\{[^}]*transition:\s*opacity 700ms cubic-bezier[^}]*transform 700ms cubic-bezier/s);
+  assert.match(css, /\.sound-section \.story-illustration\s*\{[^}]*width:\s*min\(64vw, 900px\)[^}]*--scroll-progress:\s*0;/s);
   assert.match(css, /\.immersive-campaign\s*\{[^}]*background:\s*var\(--night\)/s);
   assert.match(css, /\.story-silver\s*\{[^}]*color:\s*var\(--text\)[^}]*background:\s*var\(--night-soft\)/s);
 });
@@ -306,8 +307,8 @@ test('stylesheet supports revised feature sections and motion-safe presentation'
     '.site-header.is-scrolled',
     '.site-nav.is-open',
     '.reveal.is-visible',
-    '.feature-grid',
-    '.feature-card',
+    '.impact-intro',
+    '.chapter-index',
     '.sound-section',
     '.noise-experience',
     '[data-mode="transparency"]',
@@ -319,13 +320,12 @@ test('stylesheet supports revised feature sections and motion-safe presentation'
   }
 });
 
-test('mobile highlights condense the five reasons into one wide card and four paired cards', async () => {
+test('mobile highlights condense the five reasons into a two-column chapter index', async () => {
   const css = await read('styles.css');
 
-  assert.match(css, /\.feature-grid\s*\{\s*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\);\s*grid-template-rows:\s*250px;\s*grid-auto-rows:\s*226px;\s*gap:\s*12px;/);
-  assert.match(css, /\.feature-card, \.feature-card:nth-child\(1\), \.feature-card:nth-child\(2\), \.feature-card:nth-child\(n \+ 3\)\s*\{\s*grid-column:\s*auto;\s*min-height:\s*226px;\s*border-radius:\s*18px;/);
-  assert.match(css, /\.feature-card:nth-child\(1\)\s*\{\s*grid-column:\s*1 \/ -1;\s*min-height:\s*250px;/);
-  assert.match(css, /\.feature-card strong\s*\{\s*white-space:\s*normal;\s*line-height:\s*1\.08;/);
+  assert.match(css, /\.chapter-index \{ grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
+  assert.match(css, /\.chapter-index a:last-child \{ grid-column: 1 \/ -1; \}/);
+  assert.match(css, /\.impact-intro \{[^}]*min-height: max\(760px, 100svh\)/s);
 });
 
 test('mobile noise experience keeps controls and both mode visuals in one viewport', async () => {
@@ -396,4 +396,35 @@ test('deployment workflow copies the design-system files', async () => {
   for (const file of ['design-system.html', 'design-system.css', 'design-system.js']) {
     assert.ok(workflow.includes(file), `deployment workflow should copy ${file}`);
   }
+});
+
+test('flagship story uses product-scale full-screen chapter hooks', async () => {
+  const html = await read('index.html');
+  const css = await read('styles.css');
+
+  for (const value of [
+    'class="hero-stage"',
+    'impact-intro reveal',
+    'class="chapter-index"',
+    'spatial-orbits',
+    'class="spatial-product"',
+    'data-scroll-scale',
+  ]) {
+    assert.ok(html.includes(value), `flagship story should include ${value}`);
+  }
+
+  assert.match(css, /\.hero-stage\s*\{[^}]*min-height:\s*clamp\(520px,\s*72svh,\s*900px\)/s);
+  assert.match(css, /\.impact-intro\s*\{[^}]*min-height:\s*100svh/s);
+  assert.match(css, /\.spatial-showcase \.campaign-visual img\s*\{[^}]*transform:\s*scale\(calc\(1\.38/s);
+});
+
+test('scroll scale remains progressive and respects reduced motion', async () => {
+  const script = await read('script.js');
+  const css = await read('styles.css');
+
+  for (const value of ['data-scroll-scale', '--scroll-progress', 'requestAnimationFrame', 'prefers-reduced-motion']) {
+    assert.ok(script.includes(value), `scroll story should include ${value}`);
+  }
+
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\[data-scroll-scale\]/);
 });
