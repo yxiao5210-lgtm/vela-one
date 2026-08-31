@@ -17,3 +17,6 @@ dist/
 
 # Wrangler writes local state here; it may contain machine-specific deployment metadata.
 .wrangler/
+
+# Git worktrees keep large isolated checkouts out of the main source tree.
+.worktrees/
