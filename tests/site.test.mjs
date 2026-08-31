@@ -19,13 +19,18 @@ test('page exposes product sections and navigation controls', async () => {
 });
 
 test('mobile menu follows the page order and hides the duplicate noise CTA', async () => {
+  const html = await read('index.html');
   const css = await read('styles.css');
   const mobileCss = css.slice(css.indexOf('@media (max-width: 700px)'));
+  const nav = html.match(/<nav\b[^>]*\bclass="site-nav"[^>]*>[\s\S]*?<\/nav>/i)?.[0];
+  const navTargets = [...nav.matchAll(/<a(?![^>]*\bclass="nav-cta")[^>]*\bhref="([^"]+)"/gi)].map((match) => match[1]);
+
+  assert.deepEqual(navTargets, ['#overview', '#noise-control', '#sound-engineering', '#comfort', '#specs']);
 
   const expectedOrder = [
     ['#overview', 1],
     ['#noise-control', 2],
-    ['#sound-quality', 3],
+    ['#sound-engineering', 3],
     ['#comfort', 4],
     ['#specs', 5],
   ];
@@ -49,13 +54,46 @@ test('page sections follow the revised product story order', async () => {
     'overview',
     'highlights',
     'noise-control',
-    'sound-quality',
     'sound-engineering',
     'spatial-audio',
     'comfort',
     'specs',
     'closing',
   ]);
+});
+
+test('quiet luxury story removes the face-led reference chapter', async () => {
+  const html = await read('index.html');
+  const ids = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map((match) => match[1]);
+
+  assert.deepEqual(ids, [
+    'overview',
+    'highlights',
+    'noise-control',
+    'sound-engineering',
+    'spatial-audio',
+    'comfort',
+    'specs',
+    'closing',
+  ]);
+  assert.doesNotMatch(html, /id="sound-quality"|vela-sound-reference|Dolby/i);
+  assert.match(html, /<a href="#sound-engineering">音质<\/a>/);
+});
+
+test('story uses the approved anonymous visual assets', async () => {
+  const html = await read('index.html');
+
+  for (const asset of [
+    'vela-quiet-anc.webp',
+    'vela-quiet-transparency.webp',
+    'vela-spatial-field.webp',
+  ]) {
+    assert.ok(html.includes(`assets/${asset}`), `page should use ${asset}`);
+    const info = await stat(new URL(`../assets/${asset}`, import.meta.url));
+    assert.equal(info.isFile(), true, `${asset} should be a file`);
+  }
+
+  assert.doesNotMatch(html, /vela-spatial-immersive|vela-anc-active|vela-transparency/);
 });
 
 test('page has concise large headings without line-break markup', async () => {
@@ -76,15 +114,10 @@ test('page references the revised visual assets that exist on disk', async () =>
   const html = await read('index.html');
   const assets = [
     'vela-one-hero.png',
-    'vela-one-anc-subway-product-crop.webp',
+    'vela-quiet-anc.webp',
+    'vela-quiet-transparency.webp',
     'vela-acoustics.webp',
-    'vela-anc-active-desktop.webp',
-    'vela-anc-active-mobile.webp',
-    'vela-transparency-desktop.webp',
-    'vela-transparency-mobile.webp',
-    'vela-sound-reference.webp',
-    'vela-spatial-immersive-desktop.webp',
-    'vela-spatial-immersive-mobile.webp',
+    'vela-spatial-field.webp',
     'vela-fit-closeup-clean.webp',
     'vela-case-still.webp',
   ];
@@ -103,18 +136,16 @@ test('page references the revised visual assets that exist on disk', async () =>
   }
 });
 
-test('sound section uses the approved reference image while spatial remains original Vela', async () => {
+test('sound proof and spatial chapters stay product-led', async () => {
   const html = await read('index.html');
-  const sound = html.match(/<section\b[^>]*\bid="sound-quality"[^>]*>[\s\S]*?<\/section>/i)?.[0];
+  const sound = html.match(/<section\b[^>]*\bid="sound-engineering"[^>]*>[\s\S]*?<\/section>/i)?.[0];
   const spatial = html.match(/<section\b[^>]*\bid="spatial-audio"[^>]*>[\s\S]*?<\/section>/i)?.[0];
 
-  assert.ok(sound, 'sound-quality section should exist');
-  assert.match(sound, /class="reference-sound-section reveal"/);
-  assert.match(sound, /assets\/vela-sound-reference\.webp/);
-  assert.doesNotMatch(sound, /Vela Studio Sound|vela-studio-sound|sound-signatures/);
+  assert.ok(sound, 'sound-engineering section should exist');
+  assert.match(sound, /assets\/vela-acoustics\.webp/);
   assert.ok(spatial, 'spatial-audio section should exist');
-  for (const label of ['标准', '音乐', '视频', '听书', '游戏']) assert.match(spatial, new RegExp(label));
-  assert.doesNotMatch(spatial, /小米|Xiaomi|Dolby/i);
+  assert.match(spatial, /assets\/vela-spatial-field\.webp/);
+  assert.doesNotMatch(spatial, /女性|人物|vela-spatial-immersive|spatial-modes|小米|Xiaomi|Dolby/i);
 });
 
 test('sound engineering combines listening promise, codec evidence, and certification badges', async () => {
@@ -165,7 +196,7 @@ test('hero and primary highlight use the approved cinematic product assets', asy
   assert.match(hero, /fetchpriority="high"/);
   assert.doesNotMatch(hero, /vela-hero-studio-/);
   assert.ok(highlights, 'highlights should exist');
-  assert.match(highlights, /assets\/vela-one-anc-subway-product-crop\.webp/);
+  assert.match(highlights, /assets\/vela-quiet-anc\.webp/);
 });
 
 test('sound-detail card jumps directly to the acoustic proof section', async () => {
@@ -217,7 +248,6 @@ test('highlights and noise control use the cinematic dark-surface treatment', as
 test('sound proof is the ice-silver technical chapter within the dark story', async () => {
   const css = await read('styles.css');
 
-  assert.match(css, /\.reference-sound-section\s*\{[^}]*background:\s*var\(--night\)/s);
   assert.match(css, /\.sound-section\s*\{[^}]*color:\s*var\(--ink\)[^}]*background:\s*var\(--paper\)/s);
   assert.match(css, /\.sound-section \.story-illustration\s*\{[^}]*transition:\s*opacity 700ms cubic-bezier[^}]*transform 700ms cubic-bezier/s);
   assert.match(css, /\.immersive-campaign\s*\{[^}]*background:\s*var\(--night\)/s);
@@ -232,6 +262,7 @@ test('specifications and closing keep the final chapters dark and motion-safe', 
   assert.match(css, /\.closing-section\s*\{[^}]*background:\s*var\(--night\)/s);
   assert.match(css, /\.site-footer\s*\{[^}]*background:\s*var\(--night\)/s);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.sound-section \.story-illustration/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.js-enabled \.reveal\s*\{[^}]*opacity:\s*1;[^}]*transform:\s*none;/);
 });
 
 test('noise experience exposes accessible mode controls and description state', async () => {
@@ -249,12 +280,22 @@ test('noise experience exposes accessible mode controls and description state', 
   assert.ok(modeButtons.every((match) => /aria-pressed="(?:true|false)"/.test(match[0])));
   assert.match(section, /aria-pressed="true"/);
   assert.match(section, /data-noise-title\b/);
-  assert.match(section, /data-noise-description\b/);
+  assert.match(section, /data-noise-description[^>]*aria-live="polite"[^>]*aria-atomic="true"/);
 
   const visuals = [...section.matchAll(/<picture\b[^>]*data-noise-visual="([^"]+)"[^>]*>[\s\S]*?<\/picture>/gi)];
   assert.deepEqual(visuals.map((match) => match[1]).sort(), ['anc', 'transparency']);
-  assert.match(visuals.find((match) => match[1] === 'anc')[0], /vela-anc-active-(?:desktop|mobile)\.webp/);
-  assert.match(visuals.find((match) => match[1] === 'transparency')[0], /vela-transparency-(?:desktop|mobile)\.webp/);
+  assert.match(visuals.find((match) => match[1] === 'anc')[0], /vela-quiet-anc\.webp/);
+  assert.match(visuals.find((match) => match[1] === 'transparency')[0], /vela-quiet-transparency\.webp/);
+});
+
+test('reveal animation is progressive enhancement so content survives without JavaScript', async () => {
+  const css = await read('styles.css');
+  const script = await read('script.js');
+
+  assert.match(css, /\.reveal\s*\{[^}]*opacity:\s*1;[^}]*transform:\s*none;/s);
+  assert.match(css, /\.js-enabled \.reveal\s*\{[^}]*opacity:\s*0;[^}]*translateY\(18px\)/s);
+  assert.match(css, /\.js-enabled \.reveal\.is-visible\s*\{[^}]*opacity:\s*1;[^}]*transform:\s*none;/s);
+  assert.match(script, /document\.documentElement\.classList\.add\('js-enabled'\)/);
 });
 
 test('stylesheet supports revised feature sections and motion-safe presentation', async () => {

@@ -10,12 +10,12 @@ const noiseTitle = document.querySelector('[data-noise-title]');
 const noiseDescription = document.querySelector('[data-noise-description]');
 const noiseContent = {
   anc: {
-    title: '世界安静下来',
-    description: '地铁、人群与轨道声逐渐退后，只留下你正在聆听的声音。',
+    title: '把喧闹留在外面',
+    description: '轨道、人群与城市声退到远处，只留下你想听见的部分。',
   },
   transparency: {
-    title: '重要的声音重新靠近',
-    description: '无需摘下耳机，也能自然听见对话、广播和身边的环境提示。',
+    title: '让重要的声音靠近',
+    description: '车厢提示、对话和环境方向重新清晰，无需摘下耳机。',
   },
 };
 
@@ -74,6 +74,7 @@ if ('IntersectionObserver' in window) {
     { threshold: 0.16 },
   );
 
+  document.documentElement.classList.add('js-enabled');
   reveals.forEach((element) => revealObserver.observe(element));
 } else {
   reveals.forEach((element) => element.classList.add('is-visible'));

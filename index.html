@@ -15,8 +15,8 @@
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">菜单</button>
       <nav class="site-nav" id="main-nav" aria-label="主导航">
         <a href="#overview">概览</a>
-        <a href="#sound-quality">音质</a>
         <a href="#noise-control">降噪</a>
+        <a href="#sound-engineering">音质</a>
         <a href="#comfort">佩戴</a>
         <a href="#specs">规格</a>
         <a class="nav-cta" href="#noise-control">体验降噪</a>
@@ -44,7 +44,7 @@
         <h2>五个值得靠近的理由</h2>
         <div class="feature-grid">
           <a class="feature-card" href="#noise-control">
-            <img src="assets/vela-one-anc-subway-product-crop.webp" alt="地铁驶过时放在深色台面上的冰银 Vela One 耳机" width="941" height="941" loading="lazy" decoding="async" />
+            <img src="assets/vela-quiet-anc.webp" alt="无人地铁夜景中的冰银 Vela One 耳机与充电盒" width="1536" height="1024" loading="lazy" decoding="async" />
             <span><strong>把通勤留在外面</strong><small>让车厢嘈杂退后。</small></span>
           </a>
           <a class="feature-card" href="#sound-engineering">
@@ -52,7 +52,7 @@
             <span><strong>听见每一层细节</strong><small>让人声与乐器更清晰。</small></span>
           </a>
           <a class="feature-card" href="#spatial-audio">
-            <img src="assets/vela-spatial-immersive-mobile.webp" alt="佩戴 Vela One 耳机沉浸在空间声场中的女性" width="941" height="1672" loading="lazy" decoding="async" />
+            <img src="assets/vela-spatial-field.webp" alt="冰银 Vela One 耳机在黑色展厅中被空间声场环绕" width="1536" height="1024" loading="lazy" decoding="async" />
             <span><strong>声音来到身边</strong><small>让声场从身边展开。</small></span>
           </a>
           <a class="feature-card" href="#comfort">
@@ -69,27 +69,21 @@
       <section class="story-section story-light noise-experience reveal" id="noise-control" data-mode="anc">
         <div class="story-copy">
           <p class="eyebrow">智能降噪</p>
-          <h2 data-noise-title>世界安静下来</h2>
+          <h2 data-noise-title>把喧闹留在外面</h2>
           <div class="mode-switch" role="group" aria-label="聆听模式">
             <button type="button" data-noise-mode="anc" aria-pressed="true">降噪开启</button>
             <button type="button" data-noise-mode="transparency" aria-pressed="false">通透模式</button>
           </div>
-          <p data-noise-description>地铁、人群与轨道声逐渐退后，只留下你正在聆听的声音。</p>
+          <p data-noise-description aria-live="polite" aria-atomic="true">轨道、人群与城市声退到远处，只留下你想听见的部分。</p>
         </div>
         <div class="story-illustration">
           <picture class="noise-visual" data-noise-visual="anc" aria-hidden="true">
-            <source media="(max-width: 700px)" srcset="assets/vela-anc-active-mobile.webp" />
-            <img src="assets/vela-anc-active-desktop.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
+            <img src="assets/vela-quiet-anc.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async" />
           </picture>
           <picture class="noise-visual" data-noise-visual="transparency" aria-hidden="true">
-            <source media="(max-width: 700px)" srcset="assets/vela-transparency-mobile.webp" />
-            <img src="assets/vela-transparency-desktop.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
+            <img src="assets/vela-quiet-transparency.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async" />
           </picture>
         </div>
-      </section>
-
-      <section class="reference-sound-section reveal" id="sound-quality">
-        <img src="assets/vela-sound-reference.webp" alt="杜比音效调音台画面，展示调音师操作混音设备" width="1260" height="1735" loading="lazy" decoding="async" />
       </section>
 
       <section class="story-section sound-section reveal" id="sound-engineering">
@@ -121,18 +115,10 @@
         <div class="campaign-copy">
           <p class="eyebrow">独立空间音频</p>
           <h2>动态头部追踪</h2>
-          <p>声音像被固定在屏幕与舞台前方。转动头部时，方向和距离依然清楚，让音乐、视频和游戏拥有更自然的包围感。</p>
-          <ul class="spatial-modes" aria-label="空间音频场景">
-            <li><span aria-hidden="true">◌</span>标准</li>
-            <li><span aria-hidden="true">♪</span>音乐</li>
-            <li><span aria-hidden="true">▻</span>视频</li>
-            <li><span aria-hidden="true">◉</span>听书</li>
-            <li><span aria-hidden="true">✣</span>游戏</li>
-          </ul>
+          <p>声音保持在应在的位置。无论转向屏幕、舞台或窗外，方向与距离都清楚稳定。</p>
         </div>
         <picture class="campaign-visual">
-          <source media="(max-width: 700px)" srcset="assets/vela-spatial-immersive-mobile.webp" />
-          <img src="assets/vela-spatial-immersive-desktop.webp" alt="佩戴 Vela One 耳机的女性被多方向空间声场环绕" />
+          <img src="assets/vela-spatial-field.webp" alt="冰银 Vela One 耳机在黑色展厅中被空间声场环绕" width="1536" height="1024" loading="lazy" decoding="async" />
         </picture>
       </section>
 
