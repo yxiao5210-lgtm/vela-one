@@ -168,6 +168,16 @@ test('hero and primary highlight use the approved cinematic product assets', asy
   assert.match(highlights, /assets\/vela-one-anc-subway-product-crop\.webp/);
 });
 
+test('sound-detail card jumps directly to the acoustic proof section', async () => {
+  const html = await read('index.html');
+  const card = [...html.matchAll(/<a class="feature-card" href="([^"]+)">[\s\S]*?<\/a>/g)]
+    .find((match) => match[0].includes('听见每一层细节'));
+
+  assert.ok(card, 'sound-detail card should exist');
+  assert.equal(card[1], '#sound-engineering');
+  assert.match(html, /<section class="story-section sound-section reveal" id="sound-engineering">/);
+});
+
 test('main site defines the approved cinematic color system', async () => {
   const css = await read('styles.css');
 
