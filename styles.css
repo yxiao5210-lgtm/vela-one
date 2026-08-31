@@ -195,7 +195,7 @@ h2 { margin-bottom: 20px; font-size: clamp(42px, 5.2vw, 76px); line-height: 0.98
 .spatial-orbits span:nth-child(2) { width: 64%; height: 64%; }
 .spatial-orbits span:nth-child(3) { width: 92%; height: 92%; }
 .immersive-campaign::after { position: absolute; z-index: -1; inset: 0; content: ""; pointer-events: none; background: linear-gradient(90deg, rgba(3, 4, 5, 0.98) 0%, rgba(3, 4, 5, 0.76) 30%, rgba(3, 4, 5, 0.08) 62%, rgba(3, 4, 5, 0.04)); }
-.spatial-showcase::after { background: linear-gradient(90deg, rgba(3, 4, 5, 0.97) 0%, rgba(3, 4, 5, 0.72) 31%, rgba(3, 4, 5, 0.04) 60%); }
+.spatial-showcase::after { background: linear-gradient(90deg, rgba(3, 4, 5, 0.78) 0%, rgba(3, 4, 5, 0.28) 24%, rgba(3, 4, 5, 0) 38%); }
 
 .story-silver { display: flex; align-items: center; min-height: max(760px, 100svh); padding: 92px max(5vw, calc((100vw - var(--max)) / 2)); color: var(--text); background: var(--night-soft); isolation: isolate; }
 .story-silver .story-copy { z-index: 1; }

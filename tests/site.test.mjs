@@ -273,6 +273,15 @@ test('desktop visual hierarchy keeps copy, badges, and product art from collidin
   assert.match(css, /\.case-stage img\s*\{[^}]*object-fit:\s*contain;[^}]*object-position:\s*center;[^}]*scale\(calc\(\.96/s);
 });
 
+test('spatial copy overlay clears before reaching the earbuds', async () => {
+  const css = await read('styles.css');
+
+  assert.match(
+    css,
+    /\.spatial-showcase::after\s*\{[^}]*linear-gradient\(90deg,[^}]*rgba\(3,\s*4,\s*5,\s*0\)\s*38%/s,
+  );
+});
+
 test('specifications and closing keep the final chapters dark and motion-safe', async () => {
   const css = await read('styles.css');
 
