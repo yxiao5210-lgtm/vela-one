@@ -191,7 +191,7 @@ test('mobile hero separates the copy from the cinematic product stage', async ()
 
   assert.match(mobileCss, /\.hero \{[^}]*display: grid;[^}]*grid-template-rows: auto minmax\(0, 1fr\);[^}]*text-align: center;/s);
   assert.match(mobileCss, /\.hero-copy \{[^}]*display: flex;[^}]*align-items: center;/s);
-  assert.match(mobileCss, /\.product-stage-hero \{[^}]*position: relative;[^}]*margin: 32px -18px 0;/s);
+  assert.match(mobileCss, /\.product-stage-hero \{[^}]*position: relative;[^}]*height: 100%;[^}]*margin: 32px -18px 0;/s);
   assert.match(mobileCss, /\.hero-product-image \{[^}]*height: 100%;[^}]*object-fit: cover;[^}]*object-position: 70% center;/s);
 });
 
