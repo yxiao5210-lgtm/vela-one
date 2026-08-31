@@ -145,7 +145,7 @@ test('sound proof and spatial chapters stay product-led', async () => {
   assert.match(sound, /assets\/vela-acoustics\.webp/);
   assert.ok(spatial, 'spatial-audio section should exist');
   assert.match(spatial, /assets\/vela-spatial-field\.webp/);
-  assert.match(spatial, /assets\/vela-one-right\.png/);
+  assert.doesNotMatch(spatial, /assets\/vela-one-right\.png|class="spatial-product"/);
   assert.doesNotMatch(spatial, /女性|人物|vela-spatial-immersive|spatial-modes|小米|Xiaomi|Dolby/i);
 });
 
@@ -250,9 +250,24 @@ test('sound proof is the ice-silver technical chapter within the dark story', as
   const css = await read('styles.css');
 
   assert.match(css, /\.sound-section\s*\{[^}]*color:\s*var\(--ink\)[^}]*background:\s*var\(--paper\)/s);
-  assert.match(css, /\.sound-section \.story-illustration\s*\{[^}]*width:\s*min\(64vw, 900px\)[^}]*--scroll-progress:\s*0;/s);
+  assert.match(css, /\.sound-section \.story-illustration\s*\{[^}]*width:\s*min\(100%, 780px\)[^}]*--scroll-progress:\s*0;/s);
   assert.match(css, /\.immersive-campaign\s*\{[^}]*background:\s*var\(--night\)/s);
   assert.match(css, /\.story-silver\s*\{[^}]*color:\s*var\(--text\)[^}]*background:\s*var\(--night-soft\)/s);
+});
+
+test('desktop visual hierarchy keeps copy, badges, and product art from colliding', async () => {
+  const html = await read('index.html');
+  const css = await read('styles.css');
+  const hero = html.match(/<section\b[^>]*\bid="overview"[^>]*>[\s\S]*?<\/section>/i)?.[0];
+  const spatial = html.match(/<section\b[^>]*\bid="spatial-audio"[^>]*>[\s\S]*?<\/section>/i)?.[0];
+
+  assert.match(hero, /<h1>留住想听的<\/h1>/);
+  assert.match(css, /\.impact-copy h2\s*\{[^}]*font-size:\s*clamp\(58px, 7\.2vw, 112px\);[^}]*line-height:\s*\.94;/s);
+  assert.match(css, /\.impact-copy h2\s*\{[^}]*display:\s*grid;[^}]*gap:\s*clamp\(6px, 1\.2vw, 18px\);/s);
+  assert.match(css, /\.sound-details\s*\{[^}]*position:\s*relative;[^}]*z-index:\s*2;/s);
+  assert.doesNotMatch(spatial, /class="spatial-product"/);
+  assert.match(css, /\.spatial-showcase \.campaign-visual img\s*\{[^}]*scale\(calc\(1\.18/s);
+  assert.match(css, /\.case-stage img\s*\{[^}]*object-fit:\s*contain;[^}]*object-position:\s*center;[^}]*scale\(calc\(\.96/s);
 });
 
 test('specifications and closing keep the final chapters dark and motion-safe', async () => {
@@ -407,7 +422,6 @@ test('flagship story uses product-scale full-screen chapter hooks', async () => 
     'impact-intro reveal',
     'class="chapter-index"',
     'spatial-orbits',
-    'class="spatial-product"',
     'data-scroll-scale',
   ]) {
     assert.ok(html.includes(value), `flagship story should include ${value}`);
@@ -415,7 +429,7 @@ test('flagship story uses product-scale full-screen chapter hooks', async () => 
 
   assert.match(css, /\.hero-stage\s*\{[^}]*min-height:\s*clamp\(520px,\s*72svh,\s*900px\)/s);
   assert.match(css, /\.impact-intro\s*\{[^}]*min-height:\s*100svh/s);
-  assert.match(css, /\.spatial-showcase \.campaign-visual img\s*\{[^}]*transform:\s*scale\(calc\(1\.38/s);
+  assert.match(css, /\.spatial-showcase \.campaign-visual img\s*\{[^}]*transform:\s*scale\(calc\(1\.18/s);
 });
 
 test('scroll scale remains progressive and respects reduced motion', async () => {
